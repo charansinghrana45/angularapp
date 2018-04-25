@@ -15,6 +15,8 @@ class Auth extends CI_Controller
 		parent::__construct();
 
 		$this->load->model('user');
+
+		$this->load->library('form_validation');
 	}
 
 	public function login() 
@@ -126,6 +128,37 @@ class Auth extends CI_Controller
 				$this->response(['status' => FALSE, 'error' => 'Method not allowed.'], 405);		
 			}
 		}
+	}
+
+	public function sendPasswordResetLink() 
+	{
+		$user_data = json_decode($this->input->raw_input_stream, TRUE);
+
+		$requestMethod = $this->input->server('REQUEST_METHOD', TRUE);
+
+		if(strtoupper($requestMethod) == 'POST')
+		{
+			if($this->user->validate_email($user_data['email'])) 
+			{
+				$this->response(['status' => TRUE, 'message' => 'email successfully sent.', 'data' => $user_data['email']], 200);
+			}
+			else
+			{
+				$this->response(['status' => FALSE, 'error' => 'Invalid email'], 401);
+			}
+		}
+		else
+		{
+			if($requestMethod == 'OPTIONS')
+			{
+				$this->response(['status' => TRUE, 'message' => '', 'data' => ''], 200);
+			}
+			else
+			{
+				$this->response(['status' => FALSE, 'error' => 'Method not allowed.'], 405);		
+			}
+		}		
+
 	}
 
 	public function response($response = '', $code = 200) 

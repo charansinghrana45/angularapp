@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
 
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { BeforeloginService } from './services/beforelogin.service';
 import { AfterloginService } from './services/afterlogin.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,9 +35,11 @@ import { AfterloginService } from './services/afterlogin.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SnotifyModule
   ],
-  providers: [JarwisService, TokenService, AuthService, BeforeloginService, AfterloginService],
+  providers: [JarwisService, TokenService, AuthService, BeforeloginService, AfterloginService,
+  { provide: 'SnotifyToastConfig', useValue: ToastDefaults},SnotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

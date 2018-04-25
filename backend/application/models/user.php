@@ -40,4 +40,19 @@ class User extends CI_Model
 		}
 	}
 
+	public function validate_email($email)
+	{
+
+		$query = $this->db->select('email')->from('users')->where('email',$email)->get();
+
+		if($query->num_rows() > 0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
 }
