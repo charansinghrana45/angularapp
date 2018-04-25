@@ -1,2 +1,2 @@
 /frontend/node_modules
-/backend/config/database.php
+/backend/application/config/database.php
