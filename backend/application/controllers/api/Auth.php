@@ -4,67 +4,84 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * 
 */
+
+use \Firebase\JWT\JWT;
+
 class Auth extends CI_Controller
 {
 
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		$this->load->model('user');
 	}
 
 	public function login() 
 	{
 		
+		$key = "12345";
+
+
 		$requestMethod = $this->input->server('REQUEST_METHOD');
 
 
 		if(strtoupper($requestMethod) == 'POST')
 		{
+			$user_data = json_decode($this->input->raw_input_stream, TRUE);
 
-			$email = $this->input->input_stream('email', true);
-			$password = $this->input->input_stream('password', true);	
+			$email = $user_data['email'];
+			$password = $user_data['password'];	
 
-			if($this->user->validate_login() == TRUE)
+			if($this->user->validate_login(['email' => $email, 'password' => $password]))
 			{
+
+				$token = array(
+				    "iss" => "http://localhost",
+				    "aud" => "http://localhost:4200",
+				    "iat" => time(),
+				    "exp" => time() + 60*60,
+				    "id"  => 1,
+				    "email" => $email
+				);
+
+				$jwt = JWT::encode($token, $key);
+
+
 				$data = ['email' => $email, 'id' => 1];
 
-				$this->output->set_output(json_encode(['status' => TRUE, 'code'=> 200, 'data' => $data]))
-				->set_header('content-type : application/json')
-				->set_header('Access-Control-Allow-Origin: http://localhost:4200')
-				->set_header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token , Authorization')
-				->set_header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');	
-			}
+				$this->response(['status' => TRUE, 'message' => 'logged in successfully.', 'data' => $data, 'token' => $jwt], 200);
+			}	
 			else
 			{
-				$this->output->set_output(json_encode(['status' => TRUE, 'code'=> 200, 'data' => 'email or password is not valid.']))
-				->set_header('content-type : application/json')
-				->set_header('Access-Control-Allow-Origin: http://localhost:4200')
-				->set_header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token , Authorization')
-				->set_header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');		
-			}
-			
+				$this->response(['status' => FALSE, 'error' => 'invalid login details.'], 401);
+			}		
 		}
 		else
 		{
 			if($requestMethod == 'OPTIONS')
 			{
-				$this->output->set_output(json_encode(['status' => TRUE, 'code'=> 200, 'data' => ""]))
-				->set_header('content-type : application/json')
-				->set_header('Access-Control-Allow-Origin: http://localhost:4200')
-				->set_header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token , Authorization')
-				->set_header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');		
+				$this->response(['status' => TRUE, 'message' => '', 'data' => ''], 200);
 			}
 			else
 			{
-				$this->output->set_output(json_encode(['status' => TRUE, 'code'=> 405, 'data' => "Method not allowed"]))
-				->set_header('content-type : application/json')
-				->set_header('Access-Control-Allow-Origin: http://localhost:4200')
-				->set_header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token , Authorization')
-				->set_header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');			
+				$this->response(['status' => FALSE, 'error' => 'Method not allowed.'], 405);		
 			}
 		}
 		
+	}
+
+	public function response($response = '', $code = 200) 
+	{
+
+		$this->output
+		        ->set_status_header($code)
+		        ->set_content_type('application/json', 'utf-8')
+		        ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+		        ->set_header('Access-Control-Allow-Origin: http://localhost:4200')
+		        ->set_header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token , Authorization')
+		        ->set_header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS')
+		        ->_display();
+		exit;
 	}
 }

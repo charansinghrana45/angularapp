@@ -16,23 +16,26 @@ export class LoginComponent implements OnInit {
 
   };
 
+  public error;
+
   constructor(private http : HttpClient) { }
 
   ngOnInit() {
 
-  	//console.log(this.form);
   }
 
 
   onSubmit() {
 
-  	console.log(this.form);
-
   	return this.http.post('http://localhost/angularapp/backend/api/auth/login', this.form).subscribe(
   			data => console.log(data),
-  			error => console.log(error.error.error),
-  			() => console.log('done')
+  			error => this.handleError(error)
   		);
+  }
+
+  handleError(error) {
+
+    this.error = error.error.error;
   }
 
 }

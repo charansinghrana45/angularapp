@@ -13,7 +13,14 @@ class User extends CI_Model
 		->where(['email' => $data['email'], 'password' => $data['password']])
 		->get();
 
-		return $result = $query->result_array();
+		if($query->num_rows() > 0)
+		{
+			return $result = $query->row_array();
+		}
+		else
+		{
+			return FALSE;
+		}
 
 	}
 
