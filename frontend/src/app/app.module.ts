@@ -12,6 +12,11 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ResponseResetComponent } from './components/response-reset/response-reset.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { JarwisService } from './services/jarwis.service';
+import { TokenService } from './services/token.service';
+import { AuthService } from './services/auth.service';
+import { BeforeloginService } from './services/beforelogin.service';
+import { AfterloginService } from './services/afterlogin.service';
 
 
 @NgModule({
@@ -30,7 +35,7 @@ import { AppRoutingModule } from './/app-routing.module';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [JarwisService, TokenService, AuthService, BeforeloginService, AfterloginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

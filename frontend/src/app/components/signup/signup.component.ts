@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { JarwisService } from '../../services/jarwis.service';
+import { TokenService } from '../../services/token.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +23,9 @@ export class SignupComponent implements OnInit {
 
 	public error;
 
-	constructor(private http : HttpClient) { }
+	constructor(private jarwis : JarwisService,
+	            private token : TokenService,
+	            private router : Router) { }
 
 	ngOnInit() {
 
@@ -30,13 +34,19 @@ export class SignupComponent implements OnInit {
 
 	onSubmit() {
 
-		console.log(this.form);
-
-		return this.http.post('http://localhost/angularapp/backend/api/auth/signup', this.form).subscribe(
-				data => console.log(data),
+		return this.jarwis.signup(this.form).subscribe(
+				data => this.handleResponse(data),
 				error => this.handleError(error)
 			);
 	}
+
+	handleResponse(data) {
+
+	   this.token.handleToken(data.token);
+
+	   this.router.navigateByUrl('/profile');
+	}
+
 
 	handleError(error) {
 

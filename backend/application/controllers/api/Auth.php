@@ -37,7 +37,7 @@ class Auth extends CI_Controller
 			{
 
 				$token = array(
-				    "iss" => "http://localhost",
+				    "iss" => base_url()."api/auth/login",
 				    "aud" => "http://localhost:4200",
 				    "iat" => time(),
 				    "exp" => time() + 60*60,
@@ -95,7 +95,7 @@ class Auth extends CI_Controller
 			{
 
 				$token = array(
-				    "iss" => "http://localhost",
+				    "iss" => base_url().'api/auth/signup',
 				    "aud" => "http://localhost:4200",
 				    "iat" => time(),
 				    "exp" => time() + 60*60,
