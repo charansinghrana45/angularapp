@@ -61,9 +61,8 @@ export class TokenService {
 
   decode(payload) {
 
-  	const payload = JSON.parse(atob(payload));
+  	return payload = JSON.parse(atob(payload));
 
-  	return payload;
   }
 
   loggedIn() {
