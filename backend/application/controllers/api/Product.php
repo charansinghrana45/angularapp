@@ -58,12 +58,15 @@ class Product extends CI_Controller
 
 		if($this->form_validation->run() === FALSE)
 		{
+
 			$this->response(['status' => FALSE, 'error' => $this->form_validation->error_array()], 422);
 		}
 		else
 		{
-			
-			$this->response(['status' => TRUE, 'message' => 'success', 'data' => $user_data['category']], 200);
+			if(!isset($_FILES['myfile']['name'][0]))
+			$this->response(['status' => FALSE, 'error' => 'file cannot be empty.'], 422);
+
+			$this->response(['status' => TRUE, 'message' => 'success', 'data' => $_FILES], 200);
 		}
 
 	}

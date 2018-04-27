@@ -20,6 +20,12 @@ export class ProfileComponent implements OnInit {
 
   public error = [];
 
+  fileToUpload: File = null;
+
+  mfiles = [];
+
+  i=0;
+
   constructor(private jarwis : JarwisService) {
 
   	this.categories = [
@@ -34,9 +40,18 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  handleInputFile(files: FileList) {
+
+    this.fileToUpload = files.item(0);
+
+    this.mfiles[this.i] = this.fileToUpload;
+
+     this.i++;
+  }
+
   onSubmit() {
 
-   		this.jarwis.addProduct(this.form).subscribe(
+   		this.jarwis.addProduct(this.form, this.mfiles).subscribe(
   			data => this.handleResponse(data),
   			error => this.handleError(error)
   		);;
