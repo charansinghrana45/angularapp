@@ -18,6 +18,7 @@ import { TokenService } from './services/token.service';
 import { AuthService } from './services/auth.service';
 import { BeforeloginService } from './services/beforelogin.service';
 import { AfterloginService } from './services/afterlogin.service';
+import { ProductListComponent } from './components/product-list/product-list.component';
 
 
 
@@ -29,7 +30,8 @@ import { AfterloginService } from './services/afterlogin.service';
     RequestResetComponent,
     SignupComponent,
     ProfileComponent,
-    ResponseResetComponent
+    ResponseResetComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,

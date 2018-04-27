@@ -52,4 +52,10 @@ export class JarwisService {
 
   }
 
+  getProducts() {
+
+    return this.http.get(this.baseUrl+'/product/get');
+
+  }
+
 }

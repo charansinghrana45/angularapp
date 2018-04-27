@@ -12,7 +12,7 @@ class Product extends CI_Controller
 	{
 		parent::__construct();
 
-//		$this->load->model('product');
+		$this->load->model('product_model');
 		$this->load->library('form_validation');
 		$this->load->config('validation_rules', TRUE);
 	}
@@ -20,32 +20,22 @@ class Product extends CI_Controller
 	public function get()
 	{
 
-		$user_data = $this->input->post();
+		$products = $this->product_model->get_products();
 
-		$this->form_validation->set_error_delimiters('','');
-
-		$this->form_validation->set_data($user_data);
-		
-		$this->form_validation->set_rules($this->config->item('upload_image', 'validation_rules'));
-
-
-		if($this->form_validation->run() === FALSE)
+		if(!$products)
 		{
-			$this->response(['status' => FALSE, 'error' => $this->form_validation->error_array()], 422);
+			$this->response(['status' => TRUE, 'message' => 'no product found.', 'data' => [] ], 200);
 		}
-		else
-		{
-			if(!isset($_FILES['myfile']['name']))
-			$this->response(['status' => FALSE, 'error' => 'file is required.'], 422);
 
+		$this->response(['status' => TRUE, 'message' => 'success', 'data' => $products ], 200);
+			
 
-			$this->response(['status' => TRUE, 'message' => 'success', 'data'], 200);
-		}
 
 	}
 
 	public function add()
 	{
+
 
 		$user_data = $this->input->post();
 
@@ -63,10 +53,65 @@ class Product extends CI_Controller
 		}
 		else
 		{
-			if(!isset($_FILES['myfile']['name'][0]))
-			$this->response(['status' => FALSE, 'error' => 'file cannot be empty.'], 422);
 
-			$this->response(['status' => TRUE, 'message' => 'success', 'data' => $_FILES], 200);
+
+			if(!isset($_FILES['myfile']['name'][0]))
+		 	{
+		 		$this->response(['status' => FALSE, 'error' => 'file cannot be empty.'], 422);
+		 	}
+		 	else
+		 	{
+
+		 		$total_files = count($_FILES['myfile']['name']);
+
+		 		$files = $_FILES;
+
+		 		$this->load->library('upload');
+
+		 		for($i = 0; $i < $total_files; $i++)
+		 		{
+
+		 			$_FILES['myfile']['name']= $files['myfile']['name'][$i];
+ 			        $_FILES['myfile']['type']= $files['myfile']['type'][$i];
+ 			        $_FILES['myfile']['tmp_name']= $files['myfile']['tmp_name'][$i];
+ 			        $_FILES['myfile']['error']= $files['myfile']['error'][$i];
+ 			        $_FILES['myfile']['size']= $files['myfile']['size'][$i]; 
+
+			 		$config['upload_path']          = './uploads/';
+	                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	                $config['max_size']             = 2048000;
+	                $config['max_width']            = 1024;
+	                $config['max_height']           = 768;
+
+	                $this->upload->initialize($config);
+
+                    if ( ! $this->upload->do_upload('myfile'))
+    	            {
+                    	
+                    	$error = array('error' => $this->upload->display_errors('',''));
+                    	$this->response(['status' => FALSE, 'error' => $error ], 422);
+                      
+    	            }
+    	            else
+    	            {
+    	                $uploaded_file_data = $this->upload->data();
+    	            	$user_data['image'] = 'uploads/'.$uploaded_file_data['file_name'];	                
+    	            }
+
+		 		}
+
+		 	}
+
+
+		 	$user_data['user_id'] = 1;
+			if(!$this->product_model->add_product($user_data))
+			{
+				$this->response(['status' => FALSE, 'error' => 'some internal error occured'], 500);
+			}
+
+
+
+			$this->response(['status' => TRUE, 'message' => 'success', 'data' => "product added successfully."], 200);
 		}
 
 	}

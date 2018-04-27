@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { JarwisService } from '../../services/jarwis.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,8 @@ export class ProfileComponent implements OnInit {
   };
 
   public error = [];
+
+  public message = null;
 
   fileToUpload: File = null;
 
@@ -60,6 +63,10 @@ export class ProfileComponent implements OnInit {
   handleResponse(data) {
 
   	 console.log(data);
+     this.message = data.data;
+
+     this.router.navigateByUrl('/profile');
+
   }
 
   handleError(error) {
@@ -67,6 +74,13 @@ export class ProfileComponent implements OnInit {
     this.error = error.error.error;
 
     console.log(this.error);
+
+    this.message = this.error.error;
+  }
+
+  onFocusName()
+  {
+    //alert('k');
   }
 
 }
