@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { JarwisService } from '../../services/jarwis.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-profile',
@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+  public childmessage = "I am passed from Parent to child component";
+
 
   public categories = [];
 
@@ -65,8 +68,9 @@ export class ProfileComponent implements OnInit {
   	 console.log(data);
      this.message = data.data;
 
-     this.router.navigateByUrl('/profile');
-
+     document.getElementById('msg').classList.add('alert-success');
+     document.getElementById('msg').classList.remove('alert-danger');
+     document.getElementById('msg').style.display = "block";
   }
 
   handleError(error) {
@@ -75,12 +79,21 @@ export class ProfileComponent implements OnInit {
 
     console.log(this.error);
 
-    this.message = this.error.error;
+    this.message = this.error;
+
+    document.getElementById('msg').classList.remove('alert-success');
+    document.getElementById('msg').classList.add('alert-danger');
+    document.getElementById('msg').style.display = "block";
   }
 
   onFocusName()
   {
-    //alert('k');
+    
+
+    document.getElementById('msg').style.display = "none";
+
+
+
   }
 
 }

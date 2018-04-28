@@ -19,8 +19,8 @@ import { AuthService } from './services/auth.service';
 import { BeforeloginService } from './services/beforelogin.service';
 import { AfterloginService } from './services/afterlogin.service';
 import { ProductListComponent } from './components/product-list/product-list.component';
-
-
+import { AppchildComponent } from './components/appchild/appchild.component';
+import { MyparentComponent } from './components/myparent/myparent.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,9 @@ import { ProductListComponent } from './components/product-list/product-list.com
     SignupComponent,
     ProfileComponent,
     ResponseResetComponent,
-    ProductListComponent
+    ProductListComponent,
+    AppchildComponent,
+    MyparentComponent,
   ],
   imports: [
     BrowserModule,

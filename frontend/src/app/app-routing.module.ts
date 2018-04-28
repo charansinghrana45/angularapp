@@ -6,6 +6,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { RequestResetComponent } from './components/request-reset/request-reset.component';
 import { ResponseResetComponent } from './components/response-reset/response-reset.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MyparentComponent } from './components/myparent/myparent.component';
 import { BeforeloginService } from './services/beforelogin.service';
 import { AfterloginService } from './services/afterlogin.service';
 
@@ -33,6 +34,11 @@ const routes: Routes = [
   { 
   	path: 'profile',
   	component: ProfileComponent,
+    canActivate: [AfterloginService]
+  },
+  { 
+    path: 'test',
+    component: MyparentComponent,
     canActivate: [AfterloginService]
   },
 ];

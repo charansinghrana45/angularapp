@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { JarwisService } from '../../services/jarwis.service';
 
 @Component({
@@ -12,13 +12,16 @@ export class ProductListComponent implements OnInit {
 
   public base_url = "http://localhost/angularapp/backend/";
 
+ @Input() greetMessage: string;
+
+
   constructor(private jarwis : JarwisService) {
 
   }
 
   ngOnInit() {
 
-  	this.jarwis.getProducts().subscribe(
+    this.jarwis.getProducts().subscribe(
   			data => this.handleResponse(data),
   			error => this.handleError(error)
   		);
