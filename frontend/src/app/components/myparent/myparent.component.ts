@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-myparent',
@@ -10,16 +11,23 @@ export class MyparentComponent implements OnInit {
 
   message : string = "I am Parent";
 
-  childmessage : string = "I am passed from Parent to child component"
+  childmessage : string = 'apple';
 
-  constructor() { }
+  constructor(private shared: SharedService) { }
 
   ngOnInit() {
   }
 
   changeValue() {
 
-  	this.childmessage = "hello child you have now changed.";
+  	this.childmessage = "anaar";
+
+    this.shared.prdouctAddStatus.next(true);
+  }
+
+  parentFunc(message) {
+
+  	alert("parent: "+message);
   }
 
 }

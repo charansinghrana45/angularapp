@@ -20,6 +20,7 @@ class Product extends CI_Controller
 	public function get()
 	{
 
+	
 		$products = $this->product_model->get_products();
 
 		if(!$products)

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { JarwisService } from '../../services/jarwis.service';
 
 @Component({
@@ -12,7 +12,8 @@ export class ProductListComponent implements OnInit {
 
   public base_url = "http://localhost/angularapp/backend/";
 
- @Input() greetMessage: string;
+  
+ @Input() productAddedStatus: boolean;
 
 
   constructor(private jarwis : JarwisService) {
@@ -21,10 +22,6 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.jarwis.getProducts().subscribe(
-  			data => this.handleResponse(data),
-  			error => this.handleError(error)
-  		);
   }
 
 handleResponse(data)
@@ -39,6 +36,14 @@ handleError(error)
 	console.log(error.error);
 }
 
+ngOnChanges(changes: SimpleChanges) {
+  
+  this.jarwis.getProducts().subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error)
+      );  
+
+}
 
 
 }

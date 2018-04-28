@@ -48,8 +48,9 @@
 		</form>
 	</div>
 </div>
+<div class="alert alert-info" [hidden]="!loading">Loading......</div>
 </div>
 </div>
 
 
-<app-product-list></app-product-list>
+<app-product-list [productAddedStatus]="childProductAddedStatus"></app-product-list>

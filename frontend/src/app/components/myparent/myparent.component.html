@@ -1,7 +1,7 @@
 <h1>Hello {{message}}</h1>
 
 <hr>
-<app-appchild [greetMessage]="childmessage"></app-appchild>
-
-
 <button (click)="changeValue()" class="btn btn-success">click me</button>
+
+
+<app-appchild [greetMessage]="childmessage" (runParentFunc)="parentFunc($event)"></app-appchild>

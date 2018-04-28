@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class JarwisService {
@@ -11,11 +16,15 @@ export class JarwisService {
     })
   };
 
-  constructor(private http: HttpClient) {
-
-   }
+  public products: object = [];
 
   public baseUrl = "http://localhost/angularapp/backend/api";
+
+  constructor(private http: HttpClient) {
+      
+     
+   }
+
 
   signup(data) {
 
@@ -52,10 +61,12 @@ export class JarwisService {
 
   }
 
-  getProducts() {
+  getProducts(): Observable<any> {
 
-    return this.http.get(this.baseUrl+'/product/get');
-
+    return this.http.get(this.baseUrl+'/product/get').map(response => response)
+    .catch((error) => { return Observable.throw(error) });
+   
   }
+
 
 }

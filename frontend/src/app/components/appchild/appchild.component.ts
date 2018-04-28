@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-appchild',
@@ -7,23 +8,41 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AppchildComponent implements OnInit {
 
-  // @Input() greetMessage: string ;
-
-    _greetMessage : string;
-
-
-  constructor() { }
-
-  ngOnInit() {
+  _greetmessage: string;
+  
+  @Input()
+  set greetMessage(message)
+  {
+  	this._greetmessage = message;
   }
 
-    @Input()
-        set greetMessage(message : string ){
-            this._greetMessage = message+ " manipulated at child component"; 
-        }
-        get greetmessage(){
-            return this._greetMessage;
-        }
+  get greetMessage()
+  {
+  	return this._greetmessage;
+  }
 
+  @Output()
+  runParentFunc = new EventEmitter();
 
+  constructor(private shared: SharedService) { }
+
+  ngOnInit() {
+
+  	this.shared.prdouctAddStatus.subscribe(data => console.log('initial'+data));
+  }
+
+  clickedMe(event, message) {
+
+  	this.runParentFunc.emit(message);
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+  	
+  	if(!changes.greetMessage.firstChange)
+  	{
+  		console.log(changes.greetMessage.currentValue);
+  		this.shared.prdouctAddStatus.subscribe(data => console.log('afterchange'+data));
+    }
+ }
 }

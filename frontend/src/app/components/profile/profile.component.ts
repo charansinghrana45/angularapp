@@ -10,8 +10,9 @@ import { JarwisService } from '../../services/jarwis.service';
 })
 export class ProfileComponent implements OnInit {
 
-  public childmessage = "I am passed from Parent to child component";
+  public childProductAddedStatus: boolean = false;
 
+  public loading: boolean = false;
 
   public categories = [];
 
@@ -48,18 +49,30 @@ export class ProfileComponent implements OnInit {
 
   handleInputFile(files: FileList) {
 
-    this.fileToUpload = files.item(0);
 
-    this.mfiles[this.i] = this.fileToUpload;
+    if(files.item(0))
+    {
+      this.fileToUpload = files.item(0);
 
-     this.i++;
+      this.mfiles[this.i] = this.fileToUpload;
+
+       this.i++;
+     }
+     else
+     {
+       this.i = 0;
+       this.mfiles = [];
+     }
   }
 
   onSubmit() {
 
+      this.loading = true;
+
    		this.jarwis.addProduct(this.form, this.mfiles).subscribe(
   			data => this.handleResponse(data),
-  			error => this.handleError(error)
+  			error => this.handleError(error),
+        () => this.loading = false
   		);;
   }
 
@@ -67,6 +80,16 @@ export class ProfileComponent implements OnInit {
 
   	 console.log(data);
      this.message = data.data;
+
+     this.form.name = null;
+     this.form.description = null;
+     this.form.category = '';
+     this.i = 0;
+     this.mfiles = [];
+
+     console.log(this.mfiles);
+
+     this.childProductAddedStatus = !this.childProductAddedStatus;
 
      document.getElementById('msg').classList.add('alert-success');
      document.getElementById('msg').classList.remove('alert-danger');
@@ -80,6 +103,8 @@ export class ProfileComponent implements OnInit {
     console.log(this.error);
 
     this.message = this.error;
+
+    this.loading = false
 
     document.getElementById('msg').classList.remove('alert-success');
     document.getElementById('msg').classList.add('alert-danger');

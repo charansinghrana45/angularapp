@@ -21,6 +21,7 @@ import { AfterloginService } from './services/afterlogin.service';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { AppchildComponent } from './components/appchild/appchild.component';
 import { MyparentComponent } from './components/myparent/myparent.component';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { MyparentComponent } from './components/myparent/myparent.component';
     SnotifyModule
   ],
   providers: [JarwisService, TokenService, AuthService, BeforeloginService, AfterloginService,
-  { provide: 'SnotifyToastConfig', useValue: ToastDefaults},SnotifyService],
+  { provide: 'SnotifyToastConfig', useValue: ToastDefaults},SnotifyService, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
