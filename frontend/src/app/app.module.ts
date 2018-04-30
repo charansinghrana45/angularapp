@@ -23,6 +23,7 @@ import { AppchildComponent } from './components/appchild/appchild.component';
 import { MyparentComponent } from './components/myparent/myparent.component';
 import { SharedService } from './services/shared.service';
 import { SampleComponent } from './components/sample/sample.component';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SampleComponent } from './components/sample/sample.component';
     AppchildComponent,
     MyparentComponent,
     SampleComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,
