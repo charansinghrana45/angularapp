@@ -22,6 +22,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { AppchildComponent } from './components/appchild/appchild.component';
 import { MyparentComponent } from './components/myparent/myparent.component';
 import { SharedService } from './services/shared.service';
+import { SampleComponent } from './components/sample/sample.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SharedService } from './services/shared.service';
     ProductListComponent,
     AppchildComponent,
     MyparentComponent,
+    SampleComponent,
   ],
   imports: [
     BrowserModule,

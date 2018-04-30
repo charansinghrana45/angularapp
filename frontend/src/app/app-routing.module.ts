@@ -7,6 +7,7 @@ import { RequestResetComponent } from './components/request-reset/request-reset.
 import { ResponseResetComponent } from './components/response-reset/response-reset.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MyparentComponent } from './components/myparent/myparent.component';
+import { SampleComponent } from './components/sample/sample.component';
 import { BeforeloginService } from './services/beforelogin.service';
 import { AfterloginService } from './services/afterlogin.service';
 
@@ -39,6 +40,11 @@ const routes: Routes = [
   { 
     path: 'test',
     component: MyparentComponent,
+    canActivate: [AfterloginService]
+  },
+  { 
+    path: 'sample',
+    component: SampleComponent,
     canActivate: [AfterloginService]
   },
 ];
