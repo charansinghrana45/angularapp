@@ -24,6 +24,8 @@ import { MyparentComponent } from './components/myparent/myparent.component';
 import { SharedService } from './services/shared.service';
 import { SampleComponent } from './components/sample/sample.component';
 import { HighlightDirective } from './directives/highlight.directive';
+import { ValidateEqualDirective } from './directives/validate-equal.directive';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { HighlightDirective } from './directives/highlight.directive';
     MyparentComponent,
     SampleComponent,
     HighlightDirective,
+    ValidateEqualDirective,
   ],
   imports: [
     BrowserModule,
