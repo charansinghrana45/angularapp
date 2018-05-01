@@ -42,7 +42,7 @@
 					<label for="name">Confirm Password</label>
 					</div>
 					<div class="col-lg-8">
-					<input type="password" name="passwordConfirm" validateEqual="password" class="form-control" #passwordConfirm="ngModel" placeholder="Confirm Password" [(ngModel)]="form.passwordConfirm" required>
+					<input type="password" name="passwordConfirm" [validateEqual]="'password'" class="form-control" #passwordConfirm="ngModel" placeholder="Confirm Password" [(ngModel)]="form.passwordConfirm" required>
 					<small class="text text-danger" *ngIf="passwordConfirm.errors?.required && passwordConfirm.touched">Confirm Password Can't be empty.</small>
 					<small class="text text-danger" *ngIf="passwordConfirm.errors?.notEqual && passwordConfirm.touched && !passwordConfirm.errors?.required">Password and Confirm Password should be matched.</small>
 					</div>
@@ -87,3 +87,6 @@
 <p appHighlight>Highlight me!</p>
 
 <p appHighlight>ramj mk!</p>
+
+
+<h1 class="alert alert-success" *appHideMe="isHidden">Hi I am structural directive text</h1>

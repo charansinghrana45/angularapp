@@ -19,6 +19,8 @@ export class SampleComponent implements OnInit {Renderer2
   		passwordConfirm: null
   };
 
+  public isHidden = true;
+
   @ViewChild('name', {read: ElementRef}) myspan:ElementRef;
 
   @ViewChild('hello_1') private helloId:ElementRef;
@@ -61,9 +63,6 @@ export class SampleComponent implements OnInit {Renderer2
           this.renderer.setStyle(myDirective.nativeElement,'backgroundColor','green');
           
         });
-
-
-
   }
  
 
