@@ -10,26 +10,35 @@ class Procedure_model extends CI_Model
 	public function get_all_products()
 	{
 
-		$this->db->trans_start();
-		$query = $this->db->query("set @count = 0;");
-		$query = $this->db->query("set @inc = 1;");
-		$query = $this->db->query("call set_counter(@count,1);");
-		$query = $this->db->query("call set_counter(@count,1);");
-		$this->db->trans_complete();
-
-		$query = $this->db->query("select @count as final_count");
-
-		if ($this->db->trans_status() === TRUE)
+		
+	   if(mysqli_multi_query($this->db->conn_id,"CALL `get_data`();"))
 		{
-		       if($query->num_rows() > 0)
-		       		{
-		       			echo "<pre>";
-		       			
-		       			print_r($query->result_array());
-		       			exit;
-		       		}
-		}
 
+		  do {
+
+           
+
+			$result = mysqli_store_result($this->db->conn_id);
+
+			
+		
+			while($row = $result->fetch_assoc())
+            {
+			echo "<pre>";
+			
+			print_r($row);
+			}
+		    
+
+		
+			var_dump(mysqli_next_result($this->db->conn_id));
+			mysqli_free_result($result);	
+
+		}while(mysqli_more_results($this->db->conn_id));
+
+		}	
+
+            exit;
 
 		return FALSE;
 	}
