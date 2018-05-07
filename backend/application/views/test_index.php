@@ -59,7 +59,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 </div>
 
-<script type="text/javascript" src="<?php echo base_url('assets/js/common.js'); ?>"></script>
+<script type="text/javascript">
+	
+	jQuery(document).ready(function (){
+
+		jQuery(document).on('click', '.page-link', function (event){
+
+			event.preventDefault();
+
+			var link = jQuery(this).attr('href');
+
+			console.log(link);
+
+			if(link.indexOf('#') > -1 )
+			{
+				return false;
+			}
+
+			jQuery.ajax({
+
+			url: link,
+			type: 'GET',
+			success: function (data){
+
+				jQuery('#products').html(jQuery(data).find('#products'));
+
+				window.history.pushState(null, '', link);
+
+			}
+
+		  });
+		
+			
+		});
+
+	});
+
+</script>
 
 
 <?php $this->load->view('layouts/footer.php'); ?>
