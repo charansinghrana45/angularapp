@@ -305,6 +305,14 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
+
+spl_autoload_register(function($classname){
+            if( strpos($classname,'interface') !== false ){
+                strtolower($classname);
+                require(APPPATH.'interfaces/'.$classname.'.php');
+            }
+        });
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
@@ -313,3 +321,6 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+
+
+

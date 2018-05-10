@@ -1,8 +1,9 @@
 <?php defined('BASEPATH') or die("no direct access allowed.");
 
-
-class Test extends CI_Controller
+class Test extends CI_Controller implements My_interface2
 {
+
+	use Application\traits\Mytrait;
 
 	public function __construct()
 	{
@@ -142,6 +143,46 @@ class Test extends CI_Controller
 
 
 	//to generate token php verison < php7
+
+
+	public function mail()
+	{
+
+		$this->load->library('email');
+
+		$this->config->load('app_settings', true);
+
+		$config = $this->config->item('mail', 'app_settings');
+
+		$this->email->initialize($config);
+
+		$this->email->from('charan.singh.icreon@gmail.com', 'Charan Singh Icreon');
+		$this->email->to('charan.singh@icreon.com');
+		$this->email->cc('another@another-example.com');
+		$this->email->bcc('them@their-example.com');
+
+		$this->email->subject('Email Test 4');
+		$this->email->message('Testing email message.Testing email message.');
+
+		//$this->email->attach(base_url().'uploads/pdf-sample.pdf', 'attachment', 'holiday.pdf');
+
+		if($this->email->send(FALSE))
+		{
+			echo "sent.";
+		}
+		else 
+		{
+			echo "<pre>";
+			print_r( $this->email->print_debugger(array('body')) );
+			echo "</pre>";
+		}
+
+	}
+
+	public function other()
+	{
+		echo "hi";
+	}
 
 
 }
