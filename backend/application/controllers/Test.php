@@ -79,4 +79,69 @@ class Test extends CI_Controller
 		$this->load->view('test_index', ['data' => $data]);
 
 	}
+
+	public function token()
+	{
+
+		//to generate token php7 option1
+		echo $token = bin2hex(random_bytes(16));
+
+
+		echo "<br />";
+		//to generate token php7 option2
+		echo $this->getToken(64);
+	}
+
+	public function getToken($length) 
+	{
+	     $token = "";
+	     $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	     $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+	     $codeAlphabet.= "0123456789";
+	     $max = strlen($codeAlphabet);// edited
+	     $codeAlphabet = str_split($codeAlphabet);
+
+	    for ($i=0; $i < $length; $i++) {
+	       $token .= $codeAlphabet[random_int(0, $max-1)];
+	    }
+
+	    return $token;
+	}
+
+	//to generate token php version < php 7
+
+	// function crypto_rand_secure($min, $max)
+	// {
+	//     $range = $max - $min;
+	//     if ($range < 1) return $min; // not so random...
+	//     $log = ceil(log($range, 2));
+	//     $bytes = (int) ($log / 8) + 1; // length in bytes
+	//     $bits = (int) $log + 1; // length in bits
+	//     $filter = (int) (1 << $bits) - 1; // set all lower bits to 1
+	//     do {
+	//         $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
+	//         $rnd = $rnd & $filter; // discard irrelevant bits
+	//     } while ($rnd > $range);
+	//     return $min + $rnd;
+	// }
+
+	// function getToken($length)
+	// {
+	//     $token = "";
+	//     $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	//     $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+	//     $codeAlphabet.= "0123456789";
+	//     $max = strlen($codeAlphabet); // edited
+
+	//     for ($i=0; $i < $length; $i++) {
+	//         $token .= $codeAlphabet[crypto_rand_secure(0, $max-1)];
+	//     }
+
+	//     return $token;
+	// }
+
+
+	//to generate token php verison < php7
+
+
 }
