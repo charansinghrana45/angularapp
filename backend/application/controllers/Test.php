@@ -185,4 +185,61 @@ class Test extends CI_Controller implements My_interface2
 	}
 
 
+	public function token_all_version()
+	{
+
+		echo $this->randomToken();
+		echo "<br />";
+		echo $this->salt();
+
+	}
+
+	//to create token
+	public function randomToken($length = 32){
+	    if(!isset($length) || intval($length) <= 8 ){
+	      $length = 32;
+	    }
+	    
+	    if (function_exists('random_bytes')) {
+	    	random_bytes($length);
+	        return bin2hex(random_bytes($length));
+	    } 
+	    
+	    if (function_exists('openssl_random_pseudo_bytes')) {
+	        return bin2hex(openssl_random_pseudo_bytes($length));
+	    }
+	}
+
+	//to create salt 
+	public function salt(){
+	    
+	    return substr(strtr(base64_encode(hex2bin($this->randomToken(32))), '+', '.'), 0, 44);
+	}
+
+
+	public function make_strong_password()
+	{
+
+		$password = "mygreatPassword";
+		$salt = sha1(md5($password));
+		$password_to_store = md5($password.$salt);
+
+		//password to store in database
+		echo $password_to_store;
+
+		echo "<br />";
+		echo $password;
+		echo "<br />";
+
+		//password to match in dtatabase
+		echo md5($password.sha1(md5($password)));
+
+	}
+
+	public function ui()
+	{
+		$this->load->view('test_ui');
+	}
+
+
 }
