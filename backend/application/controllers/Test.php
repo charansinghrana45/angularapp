@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or die("no direct access allowed.");
 
-class Test extends CI_Controller implements My_interface2
+class Test extends My_interface2
 {
 
 	use Application\traits\Mytrait;
@@ -241,5 +241,19 @@ class Test extends CI_Controller implements My_interface2
 		$this->load->view('test_ui');
 	}
 
+	public function sample_page()
+	{
+		
+		$query = $this->test_model->get_ten_products();
+
+		$data['query'] = $query;
+
+		$data['title'] = "sample page";
+
+		$this->load->view('welcome_message', $data);
+
+
+
+	}
 
 }

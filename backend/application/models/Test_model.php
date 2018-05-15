@@ -54,4 +54,11 @@ class Test_model extends CI_Model
 
 	}
 
+	public function get_ten_products()
+	{
+		$query = $this->db->select('*')->from('products')->limit(1,50)->get();
+
+		return $query->result();
+	}
+
 }

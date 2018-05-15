@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
+	<title><?php echo isset($title) ? $title: "Welcome to CodeIgniter"; ?></title>
 
 	<style type="text/css">
 
@@ -83,6 +83,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
+
+	<div>
+		
+		<?php foreach ($query as $row) {
+			echo $row->product_name;
+			echo "<br />";
+		}
+		?>
+
+		<?php echo anchor('blog/comments', 'Click Here');?>
+
+	</div>
 </div>
 
 </body>

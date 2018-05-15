@@ -52,3 +52,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+
+/*
+|
+| Application Routes
+| All application routes are defined here
+|
+*/
+
+$route['test/sample-page/name/([a-z]+)/page(/:num)?'] = 'test/sample_page/$1/$2';
+
+$route['test/sample-page/page/(:num)'] = 'test/sample_page/$1';
+
+$route['test/sample-page/page/(:any)'] = 'test/sample_page/$1';

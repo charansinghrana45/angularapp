@@ -2,9 +2,13 @@
 
 defined('BASEPATH') or die("no direct access allowed.");
 
-interface My_interface2
+class My_interface2 extends CI_Controller
 {
 
-	public function sayHello();
+
+	public function sayHello()
+	{
+
+	}
 
 }

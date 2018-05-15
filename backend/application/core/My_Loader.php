@@ -9,5 +9,10 @@ class MY_Loader extends CI_Loader {
   public function iface($strInterfaceName) {
     require_once APPPATH . '/interfaces/' . $strInterfaceName . '.php';
   }
+
+  public function sayHello()
+  {
+  	echo "hello";
+  }
  
 }
