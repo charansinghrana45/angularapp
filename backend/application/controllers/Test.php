@@ -251,9 +251,83 @@ class Test extends My_interface2
 		$data['title'] = "sample page";
 
 		$this->load->view('welcome_message', $data);
+	}
+
+	public function redis()
+	{
+
+		$this->session->set_userdata('logged_in', TRUE);
+
+		echo $this->session->userdata('logged_in');
+	}
+
+	public function redisclient()
+	{
+		$client = new \Predis\Client([
+		    'scheme' => 'tcp',
+		    'host'   => '127.0.0.1',
+		    'port'   => 6379,
+		    'password' => 'ranaji@123'
+		]);
+
+		$client->set('name', 'lol');
+
+		echo $client->get('name');
+	}
+
+	public function rediscache()
+	{
+		
+		$start = microtime(true);
+
+		$this->load->driver('cache');
+
+		$cahe_url = $this->uri->uri_string();
+		$cahe_url = str_replace('/', '_', $cahe_url);
+
+		if($this->cache->redis->get($cahe_url))
+		{
+			$output = "ok";
+			$output .=  $this->cache->redis->get($cahe_url);
+		}
+		else
+		{
+						
+			$output = '<table>';
+			$output .= '<tr>';
+			$output .= '<th>';
+			$output .= 'Numbers';
+			$output .= '<td>';
+			$output .= '<tr>';
 
 
+			for($i = 0; $i < 10000; $i++)
+			{
 
+				$output .= '<tr>';
+				$output .= '<td style="background-color:yellow; color: green; font-weight: bold">';
+				$output .= $i + 1;
+				$output .= '</td>';
+				$output .= '</tr>';
+			}
+
+			$output .= '</table>';
+			
+			$this->cache->redis->save($cahe_url, $output, 10);
+		}
+
+		$end = microtime(true);
+
+		$total_seconds = $end - $start;
+
+		$output .=  "output generated in: ".round($total_seconds,4)." seconds";
+
+		$this->output->append_output($output);
+		
+	}
+
+	public function check_cache()
+	{
 	}
 
 }
