@@ -248,9 +248,11 @@ class Test extends My_interface2
 
 		$data['query'] = $query;
 
-		$data['title'] = "sample page";
+		echo $data['title'] = "sample page";
 
-		$this->load->view('welcome_message', $data);
+		//$this->load->view('welcome_message', $data);
+
+		$this->output->cache(1);
 	}
 
 	public function redis()
@@ -282,13 +284,12 @@ class Test extends My_interface2
 
 		$this->load->driver('cache');
 
-		$cahe_url = $this->uri->uri_string();
-		$cahe_url = str_replace('/', '_', $cahe_url);
-
-		if($this->cache->redis->get($cahe_url))
+		$cahe_url = md5($this->uri->uri_string());
+		
+		if($this->cache->file->get($cahe_url))
 		{
 			$output = "ok";
-			$output .=  $this->cache->redis->get($cahe_url);
+			$output .=  $this->cache->file->get($cahe_url);
 		}
 		else
 		{
@@ -313,16 +314,18 @@ class Test extends My_interface2
 
 			$output .= '</table>';
 			
-			$this->cache->redis->save($cahe_url, $output, 10);
+			$this->cache->file->save($cahe_url, $output, 20);
+
 		}
 
 		$end = microtime(true);
 
 		$total_seconds = $end - $start;
 
-		$output .=  "output generated in: ".round($total_seconds,4)." seconds";
+		$output .= "output generated in: ".round($total_seconds,4)." seconds";
 
-		$this->output->append_output($output);
+		
+		$this->output->_display($output);		
 		
 	}
 
