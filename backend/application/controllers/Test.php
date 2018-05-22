@@ -248,9 +248,11 @@ class Test extends My_interface2
 
 		$data['query'] = $query;
 
-		echo $data['title'] = "sample page";
+		$data['title'] = "sample page";
 
-		//$this->load->view('welcome_message', $data);
+		$this->load->view('welcome_message', $data);
+
+		$this->output->enable_profiler(TRUE);
 
 		$this->output->cache(1);
 	}
