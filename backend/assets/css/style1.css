@@ -101,3 +101,287 @@ Services Section
 	display: table;
 	content: "";
 }
+
+/*================
+AboutUs Section
+================*/
+
+.about-us {
+	padding-top: 100px;
+	padding-bottom: 100px;
+	text-align: center;
+	background-image: url(../images/aboutusnew.jpg);
+	color: #fff;
+	background-repeat: no-repeat;
+	background-position: center top;
+	/*background-size: cover;*/
+	/*background-attachment: fixed;*/
+	background-color: hsl(0, 0%, 95%);
+}
+
+.aboutus-content {
+	width: 80%;
+	margin: auto;
+	background-color: rgba(0, 0, 0, 0.05);
+	margin-top: 30px;
+}
+
+.aboutus-btn {
+	background-color: rgba(0, 0, 0, 0.2);
+	color: #fff;
+	padding: 10px 15px 10px 15px;
+	margin-top: 30px;
+	border: none;
+	outline: 1px solid yellow;
+	cursor: pointer;
+}
+
+/*================
+Team Section
+================*/
+
+.team {
+	width: 100%;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	text-align: center;
+	background-color: hsl(0, 0%, 95%);
+}
+
+.team-wrapper {
+	width: 90%;
+	margin: auto;
+	padding-top: 30px;
+}
+
+.col-team {
+	float: left;
+	padding: 10px 15px 10px 15px;
+	width: 33.33%;
+}
+
+.col-team img {
+	width: 200px;
+	max-width: 100%;
+	padding-bottom: 5px;
+}
+
+.tcol {
+	max-width: 200px;
+	max-height: 250px;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.05);
+	padding: 10px;
+}
+
+.team-wrapper:after {
+	clear: both;
+	display: table;
+	content: "";
+}
+
+/*================
+Contact Section
+================*/
+
+.contact {
+	width:100%;
+	background-color: hsl(0, 0%, 95%);
+}
+
+.cta {
+	background-color: yellow;
+	width: 100%;
+	padding: 20px 5px 20px 5px;
+	text-align: center;
+}
+
+.cta-col {
+	float: left;
+	width: 33.33%;
+}
+
+.cta:after {
+	clear: both;
+	display: table;
+	content: "";
+}
+
+.cta-col h3 {
+	display: inline;
+}
+
+/*================
+Contact Main
+================*/
+
+.contactinfo {
+	width: 100%;
+	padding: 30px 5px 30px 5px;
+	text-align: center;
+	background-color: hsl(0, 0%, 95%);
+}
+
+.contactinfo-col1 {
+	width: 35%;
+	float: left;
+}
+
+.contactinfo-col2 {
+	width: 65%;
+	padding: 20px 5px 20px 5px;
+	float: left;
+	padding-right: 10%;
+}
+
+.contactinfo:after {
+	clear: both;
+	display: table;
+	content: "";
+}
+
+.social-icons {
+	padding: 15px;
+	margin-top: 30px;
+	border: 1px dotted black;
+}
+
+.fb {
+	background: #3a589b;
+	color: #fff;
+}
+
+.tw {
+	background: #d6492f;
+	color: #fff;
+}
+
+.in {
+	background: #32ccfe;
+	color: #fff;
+}
+
+.ln {
+	background: #007bb6;
+	color: #fff;
+}
+
+/* Form Style */
+
+.form {
+	padding-top: 20px;
+}
+
+.form-col {
+	float: left;
+	width: 48%;
+	margin-right: 2%;
+	text-align: left;
+}
+
+.fname, .femail {
+	width: 100%;
+	height: 35px;
+	border: none;
+	outline: none;
+	background-color: #fff;
+	padding: 0px 5px 0px 5px;
+	margin-bottom: 10px;
+}
+
+.msg-col {
+	text-align: left;
+}
+
+.msg {
+	width: 100%;
+	height: 250px;
+	border: none;
+	outline: none;
+	margin-bottom: 10px;
+}
+
+.sendbtn {
+	background-color: yellow;
+	border: none;
+	outline: 1px solid black;
+	padding: 5px 30px 5px 30px;
+	cursor: pointer;
+}
+
+.footer {
+	width: 100%;
+	background-color: #1b181f;
+	color: #eee;
+	padding: 50px 10px 50px 10px;
+}
+
+.footer:after {
+	clear: both;
+	display: table;
+	content: "";
+}
+
+.footer h2 {
+	color: #fff;
+}
+
+.footer-col {
+	float: left;
+	width: 33.33%;
+	padding: 5px 10px 5px 10px;
+}
+
+
+/*CSS MEDIA QUERIES*/
+
+@media screen and (max-width: 500px) {
+	.services-col {
+		width: 100%;
+		padding-top: 100px;
+	}
+
+	.col-team {
+		width: 100%;
+		padding-top: 100px;
+	}
+
+	.cta-col {
+		width: 100%;
+		padding-top: 25px;
+		padding-bottom: 25px;
+	}
+
+	.contactinfo-col1 {
+		width: 100%;
+	}
+
+	.contactinfo-col2{
+		width: 100%;
+		padding-right: 0px;
+		margin-top: 25px;
+	}
+
+	.footer-col {
+		width: 100%;
+		padding-top: 40px;
+		padding-bottom: 40px;
+	}
+
+	.menu {
+		height: 80px;
+	}
+
+	h1 {
+		font-size: 2em;
+	}
+
+	h2 {
+		font-size: 1.5em;
+	}
+
+	h3 {
+		font-size: 1em;
+	}
+
+}
