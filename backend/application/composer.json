@@ -10,5 +10,8 @@
         "psr-4": {
             "Application\\": "../application/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6"
     }
 }

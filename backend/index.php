@@ -311,6 +311,10 @@ spl_autoload_register(function($classname){
                 strtolower($classname);
                 require(APPPATH.'interfaces/'.$classname.'.php');
             }
+            elseif( strpos($classname,'_test') !== false ){
+                strtolower($classname);
+                require(APPPATH.'tests/'.$classname.'.php');
+            }
         });
 
 /*
