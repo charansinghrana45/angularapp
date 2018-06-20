@@ -37,6 +37,7 @@
 			display: flex;
 			margin-top: 10px;
 			justify-content: space-around;
+			flex-wrap: wrap;
 		}
 
 		.text {
@@ -163,6 +164,36 @@
 			box-shadow: none;
 		}
 
+		div.effect7 {
+			/*animation: drive 5s ease-in infinite;*/
+			top: 50px;
+			left: 15px;
+		}
+
+		@keyframes drive {
+			from {
+				left: 0;
+			}
+
+			to {
+				left: 500px;
+			}
+		}
+
+		div.effect8 {
+			position: relative;
+			top: 50px;
+			background-color: green;
+		}
+
+		div.effect8 img {
+			transition: transform 200ms ease-in;
+		}
+
+		div.effect8:hover img{
+			transform:translate(180px,180px) rotate(45deg);
+		}
+
 	</style>
 </head>
 <body>
@@ -195,7 +226,14 @@
 			<img src="<?php echo base_url('assets/images/abstract-6.jpeg'); ?>">
 			<div class="text">Superb</div>
 		</div>
+		<div class="box effect7">
+			<img src="<?php echo base_url('assets/images/abstract-6.jpeg'); ?>">
+		</div>
+		<div class="effect8">
+			<img src="<?php echo base_url('assets/images/abstract-5.jpeg'); ?>">
+		</div>
 	</div>
+
 </section>
 </body>
 </html>
