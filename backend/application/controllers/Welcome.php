@@ -33,4 +33,19 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_guest');
 	}
+
+	public function flex()
+	{
+		$this->load->view('welcome_flex');
+	}
+
+	public function sidebar()
+	{
+		$this->load->view('welcome_sidebar');
+	}
+
+	public function animation()
+	{
+		$this->load->view('welcome_animation');
+	}
 }
