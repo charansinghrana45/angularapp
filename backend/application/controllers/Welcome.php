@@ -48,4 +48,9 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_animation');
 	}
+
+	public function angularjs()
+	{
+		$this->load->view('welcome_angularjs');
+	}
 }
